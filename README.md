@@ -1,4 +1,4 @@
-# Summative_Playing-Around-with-APIs
+# Playing Around with APIs
 
 This is a Dockerized Flask web server that displays live weather information based on an API key from OpenWeatherMap. It's hosted on two web servers and load-balanced with HAProxy.
 
