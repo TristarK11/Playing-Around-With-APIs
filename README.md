@@ -1,22 +1,30 @@
-# Playing Around with APIs
+#  Currency Converter App
 
-This is a Dockerized Flask web server that displays live weather information based on an API key from OpenWeatherMap. It's hosted on two web servers and load-balanced with HAProxy.
+A simple and responsive web application that allows users to convert currency values using real-time exchange rates. The app fetches data from an external currency API and provides a clean interface for conversions.
 
-# Features
+##  Live Demo
 
-- Search for current weather by city name
-- Real-time weather data via OpenWeatherMap API
-- Built with Flask and Docker
-- Deployed across multiple servers with HAProxy load balancing
+> Deployed on Docker (Web01/Web02) behind a load balancer  
+> Accessible via `http://localhost` (or assigned load balancer port)
 
-# containers.
+---
 
-Web01   - Standalone container  (http://localhost:8080)
-Web02   - Standalone container  (http://localhost:8081)
-Load Balancer - HAProxy distributing traffic  (http://localhost:8083)
+##  Features
 
-# Resources used
+- Real-time currency exchange rates
+- Clean and responsive UI
+- JavaScript-powered interactivity
+- API-integrated
+- Dockerized for scalable deployment
 
+---
+
+##  Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- [ExchangeRate API](https://apilayer.com/marketplace/exchangerates_data-api) – for live currency rates
 - Docker
-- Python 3
-- OpenWeatherMap API Key
+- HAProxy (for load balancing)
+- Git/GitHub
