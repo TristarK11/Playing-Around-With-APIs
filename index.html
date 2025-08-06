@@ -2,23 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WeatherNow</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currency Converter</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="container">
-    <h1>WeatherNow</h1>
-    <p>Check real-time weather by city</p>
+  <div class="converter-container">
+    <h1>Currency Rate Converter</h1>
 
-    <form id="weatherForm">
-      <input type="text" id="city" placeholder="Enter City" required />
-      <button type="submit">Get Weather</button>
-    </form>
+    <div class="form-group">
+      <input type="number" id="amount" placeholder="Enter amount" />
+    </div>
 
-    <div id="weatherResult"></div>
+    <div class="form-group">
+      <select id="from-currency"></select>
+      <span>to</span>
+      <select id="to-currency"></select>
+    </div>
+
+    <button id="convert-btn">Convert</button>
+
+    <div id="result" class="result-box"></div>
   </div>
 
-  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

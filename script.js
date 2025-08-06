@@ -1,33 +1,46 @@
-const form = document.getElementById('weatherForm');
-const resultDiv = document.getElementById('weatherResult');
+const amountInput = document.getElementById("amount");
+const fromCurrency = document.getElementById("from-currency");
+const toCurrency = document.getElementById("to-currency");
+const resultBox = document.getElementById("result");
+const convertBtn = document.getElementById("convert-btn");
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+const API_URL = "https://api.frankfurter.app";
 
-  const city = document.getElementById('city').value.trim();
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+async function populateCurrencies() {
+  const res = await fetch(`${API_URL}/currencies`);
+  const currencies = await res.json();
+  const options = Object.keys(currencies).map(
+    code => `<option value="${code}">${code} - ${currencies[code]}</option>`
+  ).join("");
+  fromCurrency.innerHTML = options;
+  toCurrency.innerHTML = options;
+  fromCurrency.value = "USD";
+  toCurrency.value = "EUR";
+}
+
+convertBtn.addEventListener("click", async () => {
+  const amount = parseFloat(amountInput.value);
+  const from = fromCurrency.value;
+  const to = toCurrency.value;
+
+  if (isNaN(amount) || amount <= 0) {
+    resultBox.textContent = "Please enter a valid amount.";
+    return;
+  }
+
+  if (from === to) {
+    resultBox.textContent = "Choose different currencies to convert.";
+    return;
+  }
 
   try {
-    resultDiv.innerHTML = "Fetching weather...";
-    const res = await fetch(url);
+    const res = await fetch(`${API_URL}/latest?amount=${amount}&from=${from}&to=${to}`);
     const data = await res.json();
-
-    if (data.cod === 200) {
-      const temp = data.main.temp;
-      const weather = data.weather[0].description;
-      const icon = data.weather[0].icon;
-
-      resultDiv.innerHTML = `
-        <h3>Weather in ${data.name}</h3>
-        <p><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="icon"></p>
-        <p><strong>Temperature:</strong> ${temp} °C</p>
-        <p><strong>Description:</strong> ${weather}</p>
-      `;
-    } else {
-      resultDiv.innerHTML = `<p>Error: ${data.message}</p>`;
-    }
-  } catch (err) {
-    console.error(err);
-    resultDiv.innerHTML = "<p>Failed to fetch weather data. Please try again.</p>";
+    const rate = data.rates[to];
+    resultBox.textContent = `${amount} ${from} = ${rate} ${to}`;
+  } catch (error) {
+    resultBox.textContent = "Conversion failed. Please try again later.";
   }
 });
+
+populateCurrencies();
